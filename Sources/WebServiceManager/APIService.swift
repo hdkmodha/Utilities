@@ -15,3 +15,15 @@ public protocol APIService {
     var queryItems: [URLQueryItem]? { get }
     var url: URL? { get }
 }
+
+public extension APIService {
+    
+    var url: URL? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = self.scheme
+        urlComponents.host = self.base
+        urlComponents.queryItems = self.queryItems
+        urlComponents.path = self.fixed.isEmpty ? self.path : self.fixed + path
+        return urlComponents.url
+    }
+}
