@@ -13,6 +13,12 @@ public struct Storage<Value> {
     let key: String
     let defaultValue: Value
     var container: UserDefaults = .standard
+    
+    public init(key: String, defaultValue: Value, container: UserDefaults = .standard) {
+        self.key = key
+        self.defaultValue = defaultValue
+        self.container = container
+    }
 
     public var wrappedValue: Value {
         get {
