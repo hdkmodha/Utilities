@@ -10,6 +10,7 @@ import Alamofire
 
 public typealias JSONType = [String: Any]
 public typealias Header = [String: String]
+public typealias Progress = (Double) -> Void
 
 
 public enum HTTPMethod {
@@ -100,6 +101,10 @@ public struct WebResource<Value> {
     @discardableResult
     public func request(completion: @escaping (Result<Value, ServerStatus>) -> Void)  -> RequestToken? {
         return WebServiceManager.shared.fetch(resource: self, witnCompletion: completion)
+    }
+    
+    func uploadRequest(progress: Progress?, completion: @escaping (Result<Value, ServerStatus>) -> Void)  {
+        WebServiceManager.shared.postResource(self, progressCompletion: progress, completion: completion)
     }
     
 }
