@@ -8,21 +8,20 @@
 import Foundation
 
 @propertyWrapper 
-public struct Storage<Value> {
+public struct Storage<T> {
     
     let key: String
-    let defaultValue: Value
-    var container: UserDefaults = .standard
+    let defaultValue: T
+    private let container: UserDefaults = .standard
     
-    public init(key: String, defaultValue: Value, container: UserDefaults = .standard) {
+    public init(_ key: String, defaultValue: T) {
         self.key = key
         self.defaultValue = defaultValue
-        self.container = container
     }
-
-    public var wrappedValue: Value {
+    
+    public var wrappedValue: T {
         get {
-            return container.object(forKey: key) as? Value ?? defaultValue
+            container.object(forKey: key) as? T ?? defaultValue
         }
         set {
             container.set(newValue, forKey: key)
