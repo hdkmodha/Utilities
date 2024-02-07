@@ -9,7 +9,7 @@ import UIKit
 
 public final class AppManager: NSObject {
     
-    static let shared = AppManager()
+    public static let shared = AppManager()
     
     private override init() {
         
@@ -38,11 +38,11 @@ public final class AppManager: NSObject {
     
     ////
     ///  to get top most view controller in app
-    func topViewController() -> UIViewController {
+    public func topViewController() -> UIViewController {
         return self.rootViewController.getTopViewController()
     }
     
-    func setRootVC(withViewController controller: UIViewController) {
+    public func setRootVC(withViewController controller: UIViewController) {
         guard let window = self.window else { return }
         window.rootViewController = controller
         window.makeKeyAndVisible()
