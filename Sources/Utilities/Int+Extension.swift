@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 public extension Int {
     
@@ -14,15 +15,11 @@ public extension Int {
     }
     
     var isEven: Bool {
-        return self%2 == 0
+        return self % 2 == 0
     }
     
     func multiple(ofValue value: Int) -> Bool {
         return self.isMultiple(of: value)
-    }
-    
-    var toString: String {
-        return self.description
     }
     
     func distance(toValue value: Int) -> Int {
@@ -32,4 +29,9 @@ public extension Int {
     var toDouble: Double {
         return Double(self)
     }
+    
+    var toString: String {
+        return "\(self)"
+    }
 }
+
