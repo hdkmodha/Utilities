@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-extension UIView {
+public extension UIView {
     
     //MARK: - Apply CornerRadius
-    func applyCornerRadius(withRadius radius: CGFloat) {
+    public func applyCornerRadius(withRadius radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.clipsToBounds = true
     }
