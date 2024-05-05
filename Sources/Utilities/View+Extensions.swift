@@ -11,7 +11,7 @@ import UIKit
 public extension UIView {
     
     //MARK: - Apply CornerRadius
-    public func applyCornerRadius(withRadius radius: CGFloat) {
+    func applyCornerRadius(withRadius radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.clipsToBounds = true
     }
