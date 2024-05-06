@@ -31,15 +31,18 @@ public final class AppManager: NSObject {
         }
     }
     
-    private var rootViewController : UIViewController {
-        guard let window = self.window, let rootVC = window.rootViewController else { return  UIViewController() }
+    private var rootViewController : UIViewController? {
+        guard let window = self.window, let rootVC = window.rootViewController else { return nil }
         return rootVC
     }
     
     ////
     ///  to get top most view controller in app
     public func topViewController() -> UIViewController {
-        return self.rootViewController.getTopViewController()
+        if let rootVC = self.rootViewController {
+            return rootVC.getTopViewController()
+        }
+        return UIViewController()
     }
     
     public func setRootVC(withViewController controller: UIViewController) {
