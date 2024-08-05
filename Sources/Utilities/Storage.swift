@@ -43,6 +43,7 @@ public struct Storage<T> {
         
         func setValue(_ newValue: T) {
             UserDefaults.standard.setValue(newValue, forKey: key)
+            self.isChanged.toggle()
         }
     }
 }
