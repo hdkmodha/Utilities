@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @propertyWrapper
-public struct Storage<T> {
+public struct Storage<T>: DynamicProperty {
     
     @ObservedObject private var internalStorage: InternalStorage
     
@@ -23,6 +23,14 @@ public struct Storage<T> {
         }
         nonmutating set {
             self.internalStorage.setValue(newValue)
+        }
+    }
+    
+    public var projectedValue: Binding<T> {
+        Binding {
+            self.wrappedValue
+        } set: { newValue in
+            self.wrappedValue = newValue
         }
     }
     
