@@ -6,25 +6,43 @@
 //
 
 import Foundation
+import SwiftUI
 
-@propertyWrapper 
+@propertyWrapper
 public struct Storage<T> {
     
-    let key: String
-    let defaultValue: T
-    private let container: UserDefaults = .standard
+    @ObservedObject private var internalStorage: InternalStorage
     
     public init(_ key: String, defaultValue: T) {
-        self.key = key
-        self.defaultValue = defaultValue
+        self.internalStorage = InternalStorage(key: key, defaultValue: defaultValue)
     }
     
     public var wrappedValue: T {
         get {
-            container.object(forKey: key) as? T ?? defaultValue
+            self.internalStorage.getValue()
         }
-        set {
-            container.set(newValue, forKey: key)
+        nonmutating set {
+            self.internalStorage.setValue(newValue)
+        }
+    }
+    
+    class InternalStorage: ObservableObject {
+        let key: String
+        let defaultValue: T
+        private var isChanged: Bool = false
+        
+        init(key: String, defaultValue: T) {
+            self.key = key
+            self.defaultValue = defaultValue
+        }
+        
+        func getValue() -> T {
+            _ = isChanged
+            return UserDefaults.standard.value(forKey: key) as? T ?? defaultValue
+        }
+        
+        func setValue(_ newValue: T) {
+            UserDefaults.standard.setValue(newValue, forKey: key)
         }
     }
 }
